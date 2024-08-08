@@ -27,24 +27,20 @@ async function deleteUserByIDModel(id) {
   return;
 }
 
-async function hasPropertyColumn(property) {
-  const hasPropertyColumn = await connection.query(
-    `SELECT column_name
-    FROM information_schema.columns
-    WHERE table_name = $1 AND column_name = $2`,
-    ['users', property],
-  );
-
-  return !hasPropertyColumn;
-}
+// const hasPropertyColumn = await connection.query(
+//   `SELECT column_name
+//   FROM information_schema.columns
+//   WHERE table_name = $1 AND column_name = $2`,
+//   ['users', property],
+// );
 
 async function updateUserModel(id, property, newValue) {
   await connection.query(
     `
-      UPDATE users
-      SET ${property} = '${newValue}'
-      WHERE id = ${id}
-  `,
+        UPDATE users
+        SET ${property} = '${newValue}'
+        WHERE id = ${id}
+    `,
   );
 
   const user = await getUserByIDModel(id);
@@ -56,5 +52,4 @@ module.exports = {
   getUserByIDModel,
   deleteUserByIDModel,
   updateUserModel,
-  hasPropertyColumn,
 };

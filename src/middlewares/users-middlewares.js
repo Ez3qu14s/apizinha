@@ -1,5 +1,5 @@
 const { getUserByID } = require('../controllers/users-controller');
-const { getUserByIDModel, hasPropertyColumn } = require('../models/usersModel');
+const { getUserByIDModel, updateUserModel } = require('../models/usersModel');
 
 async function insertUserMiddleware(req, res, next) {
   const { nome, email, senha } = req.body;
@@ -48,6 +48,10 @@ async function updateUserByIdMiddleware(req, res, next) {
   const { id } = req.params;
   const { property } = req.body;
 
+  if (property !== 'nome' && property !== 'senha') {
+    return res.status(404).send('Impossível encontrar');
+  }
+
   if (!id) {
     return res.status(400).send('Dados incompleto');
   }
@@ -55,8 +59,6 @@ async function updateUserByIdMiddleware(req, res, next) {
   if (!user) {
     return res.status(404).send('User não encontrado');
   }
-
-  const hasProperty = await hasPropertyColumn(property);
 
   next();
 }

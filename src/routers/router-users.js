@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 
 const usersController = require('../controllers/users-controller');
 const {
@@ -7,8 +8,6 @@ const {
   deleteUserByIdMiddleware,
   updateUserByIdMiddleware,
 } = require('../middlewares/users-middlewares');
-
-const router = express.Router();
 
 router.post('/users', insertUserMiddleware, usersController.createUser);
 router.get('/users/:id', getUserByIDMiddleware, usersController.getUserByID);
