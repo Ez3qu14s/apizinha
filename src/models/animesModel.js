@@ -22,7 +22,7 @@ async function insertAnimeModel(
   sinopse,
 ) {
   await connection.query(`
-        INSERT INTO animes ( nome, ano, nota, genero, episodios, imagem, sinopse) VALUES (
+        INSERT INTO animes ( nome, ano, nota, categoria_id, episodios, imagem, sinopse) VALUES (
             '${nome}',
             ${ano},
             ${nota},
